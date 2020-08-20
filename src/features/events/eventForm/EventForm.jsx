@@ -1,14 +1,21 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Segment, Header, Form, Button } from "semantic-ui-react";
 import cuid from "cuid";
 
-export default function EventForm({
-  setFormOpen,
-  createEvent,
-  selectedEvent,
-  updateEvent,
-}) {
+import { createEvent, updateEvent } from "../eventActions";
+
+export default function EventForm({ match, history }) {
+  // Select Event
+  const selectedEvent = useSelector((state) =>
+    state.event.events.find((event) => {
+      return event.id === match.params.id;
+    })
+  );
+
+  const dispatch = useDispatch();
+
   const initialValues = selectedEvent ?? {
     title: "",
     category: "",
@@ -27,14 +34,17 @@ export default function EventForm({
 
   function handleFormSubmit() {
     selectedEvent
-      ? updateEvent({ ...selectedEvent, ...values })
-      : createEvent({
-          ...values,
-          id: cuid(),
-          hostedBy: "Bob",
-          hostPhotoURL: "/assets/user.png",
-          attendees: [],
-        });
+      ? dispatch(updateEvent({ ...selectedEvent, ...values }))
+      : dispatch(
+          createEvent({
+            ...values,
+            id: cuid(),
+            hostedBy: "Bob",
+            hostPhotoURL: "/assets/user.png",
+            attendees: [],
+          })
+        );
+    history.push("/events");
   }
 
   return (
