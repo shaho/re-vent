@@ -7,6 +7,7 @@ import cuid from "cuid";
 import * as Yup from "yup";
 
 import { createEvent, updateEvent } from "../eventActions";
+import MyTextInput from "../../../app/common/form/MyTextInput";
 
 export default function EventForm({ match, history }) {
   // Select Event
@@ -56,10 +57,7 @@ export default function EventForm({ match, history }) {
         validationSchema={validationSchema}
       >
         <Form className="ui form">
-          <FormField>
-            <Field name="title" placeholder="Event title" />
-            <ErrorMessage name="title" />
-          </FormField>
+          <MyTextInput name="title" placeholder="Event title" />
           <FormField>
             <Field name="category" placeholder="Category" />
           </FormField>
