@@ -10,7 +10,7 @@ export default function MyTextInput({ label, ...props }) {
       <label>{label}</label>
       <input {...field} {...props} />
       {meta.touched && meta.error ? (
-        <Label basic color="red">
+        <Label basic color="red" pointing>
           {meta.error}
         </Label>
       ) : null}
