@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Formik, Form, Field } from "formik";
 import { Link } from "react-router-dom";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Segment, Header, Button, FormField } from "semantic-ui-react";
 import cuid from "cuid";
+import * as Yup from "yup";
 
 import { createEvent, updateEvent } from "../eventActions";
 
@@ -26,27 +27,25 @@ export default function EventForm({ match, history }) {
     date: "",
   };
 
-  const [values, setValues] = useState(initialValues);
+  // Validation Schema with Yup
+  const validationSchema = Yup.object({
+    title: Yup.string().required("You must provide a title"),
+  });
 
-  function handleInputChange(e) {
-    const { name, value } = e.target;
-    setValues({ ...values, [name]: value });
-  }
-
-  function handleFormSubmit() {
-    selectedEvent
-      ? dispatch(updateEvent({ ...selectedEvent, ...values }))
-      : dispatch(
-          createEvent({
-            ...values,
-            id: cuid(),
-            hostedBy: "Bob",
-            hostPhotoURL: "/assets/user.png",
-            attendees: [],
-          })
-        );
-    history.push("/events");
-  }
+  // function handleFormSubmit() {
+  //   selectedEvent
+  //     ? dispatch(updateEvent({ ...selectedEvent, ...values }))
+  //     : dispatch(
+  //         createEvent({
+  //           ...values,
+  //           id: cuid(),
+  //           hostedBy: "Bob",
+  //           hostPhotoURL: "/assets/user.png",
+  //           attendees: [],
+  //         })
+  //       );
+  //   history.push("/events");
+  // }
 
   return (
     <Segment clearing>
@@ -54,10 +53,12 @@ export default function EventForm({ match, history }) {
       <Formik
         initialValues={initialValues}
         onSubmit={(values) => console.log(values)}
+        validationSchema={validationSchema}
       >
         <Form className="ui form">
           <FormField>
             <Field name="title" placeholder="Event title" />
+            <ErrorMessage name="title" />
           </FormField>
           <FormField>
             <Field name="category" placeholder="Category" />
