@@ -10,6 +10,7 @@ import { createEvent, updateEvent } from "../eventActions";
 import MyTextInput from "../../../app/common/form/MyTextInput";
 import MyTextArea from "../../../app/common/form/MyTextArea";
 import MySelectInput from "../../../app/common/form/MySelectInput";
+import MyDateInput from "../../../app/common/form/MyDateInput";
 import { categoryData } from "../../../app/api/categoryOptions";
 
 export default function EventForm({ match, history }) {
@@ -73,7 +74,14 @@ export default function EventForm({ match, history }) {
           <Header sub color="teal" content="Event Location Details" />
           <MyTextInput name="city" placeholder="City" />
           <MyTextInput name="venue" placeholder="Venue" />
-          <MyTextInput name="date" placeholder="Date" type="date" />
+          <MyDateInput
+            name="date"
+            placeholderText="Date"
+            timeFormat="HH:mm"
+            showTimeSelect
+            timeCaption="time"
+            dateFormat="MMMM d, yyyy h:mm a"
+          />
           <Button type="submit" floated="right" positive content="Submit" />
           <Button
             as={Link}
