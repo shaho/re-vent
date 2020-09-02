@@ -9,6 +9,8 @@ import * as Yup from "yup";
 import { createEvent, updateEvent } from "../eventActions";
 import MyTextInput from "../../../app/common/form/MyTextInput";
 import MyTextArea from "../../../app/common/form/MyTextArea";
+import MySelectInput from "../../../app/common/form/MySelectInput";
+import { categoryData } from "../../../app/api/categoryOptions";
 
 export default function EventForm({ match, history }) {
   // Select Event
@@ -62,7 +64,11 @@ export default function EventForm({ match, history }) {
         <Form className="ui form">
           <Header sub color="teal" content="Event Details" />
           <MyTextInput name="title" placeholder="Event title" />
-          <MyTextInput name="category" placeholder="Category" />
+          <MySelectInput
+            name="category"
+            placeholder="Event Category"
+            options={categoryData}
+          />
           <MyTextArea name="description" placeholder="Description" rows={3} />
           <Header sub color="teal" content="Event Location Details" />
           <MyTextInput name="city" placeholder="City" />
