@@ -8,7 +8,7 @@ export default function ModalWrapper({ children, size, header }) {
   const dispatch = useDispatch();
   return (
     <Modal open={true} onClose={() => dispatch(closeModal())} size={size}>
-      {header && <Modal.header>{header}</Modal.header>}
+      {header && <Modal.Header>{header}</Modal.Header>}
       <Modal.Content>{children}</Modal.Content>
     </Modal>
   );
