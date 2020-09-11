@@ -9,6 +9,8 @@ import EventForm from "../../features/events/eventForm/EventForm";
 import EventDetaildPage from "../../features/events/eventDetailed/EventDetailedPage";
 import ModalManager from "../common/modals/ModalManager";
 
+import Sandbox from "../../features/sandbox/Sandbox";
+
 export default function App() {
   const { key } = useLocation();
 
@@ -24,6 +26,7 @@ export default function App() {
               <NavBar />
               <Container className="main">
                 <Route exact path="/events" component={EventDashboard} />
+                <Route exact path="/sandbox" component={Sandbox} />
                 <Route path="/events/:id" component={EventDetaildPage} />
                 <Route
                   path={["/createEvent", "/manage/:id"]}

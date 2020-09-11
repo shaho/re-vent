@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Formik, Form } from "formik";
@@ -11,6 +11,7 @@ import MyTextInput from "../../../app/common/form/MyTextInput";
 import MyTextArea from "../../../app/common/form/MyTextArea";
 import MySelectInput from "../../../app/common/form/MySelectInput";
 import MyDateInput from "../../../app/common/form/MyDateInput";
+import MyPlaceInput from "../../../app/common/form/MyPlaceInput";
 import { categoryData } from "../../../app/api/categoryOptions";
 
 export default function EventForm({ match, history }) {
@@ -20,6 +21,11 @@ export default function EventForm({ match, history }) {
       return event.id === match.params.id;
     })
   );
+
+  const [place, setPlace] = useState(null);
+  const handleSelect = (place) => {
+    setPlace({ place });
+  };
 
   const dispatch = useDispatch();
 
@@ -75,6 +81,11 @@ export default function EventForm({ match, history }) {
             <Header sub color="teal" content="Event Location Details" />
             <MyTextInput name="city" placeholder="City" />
             <MyTextInput name="venue" placeholder="Venue" />
+            <MyPlaceInput
+              name="search"
+              placeholder="Type an address"
+              onSelect={handleSelect}
+            />
             <MyDateInput
               name="date"
               placeholderText="Date"
