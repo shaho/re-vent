@@ -33,7 +33,11 @@ export default function EventForm({ match, history }) {
     title: "",
     category: "",
     description: "",
-    city: "",
+    city: {
+      address: "",
+      lat: null,
+      lang: null,
+    },
     venue: "",
     date: "",
   };
@@ -43,7 +47,9 @@ export default function EventForm({ match, history }) {
     title: Yup.string().required("You must provide a title"),
     category: Yup.string().required("You must provide a category"),
     description: Yup.string().required(),
-    city: Yup.string().required(),
+    city: Yup.object().shape({
+      address: Yup.string().required("City is required"),
+    }),
     venue: Yup.string().required(),
     date: Yup.string().required(),
   });
@@ -79,11 +85,12 @@ export default function EventForm({ match, history }) {
             />
             <MyTextArea name="description" placeholder="Description" rows={3} />
             <Header sub color="teal" content="Event Location Details" />
-            <MyTextInput name="city" placeholder="City" />
+            {/* <MyTextInput name="city" placeholder="City" /> */}
             <MyTextInput name="venue" placeholder="Venue" />
             <MyPlaceInput
-              name="search"
-              placeholder="Type an address"
+              name="city"
+              placeholder="City"
+              place={place}
               onSelect={handleSelect}
             />
             <MyDateInput
